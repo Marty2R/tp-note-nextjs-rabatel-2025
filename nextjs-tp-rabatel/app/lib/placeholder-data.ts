@@ -8,6 +8,20 @@ const users = [
     password: '123456',
     role: 'user'
   },
+  {
+    id: '410544b2-4001-4271-9855-fec4b6a6442b',
+    name: 'Student',
+    email: 'student@nextmail.com',
+    password: '123456',
+    role: 'student'
+  },
+  {
+    id: '410544b2-4001-4271-9855-fec4b6a6442c',
+    name: 'Teacher',
+    email: 'teacher@nextmail.com',
+    password: '123456',
+    role: 'teacher'
+  },
 ];
 
 const customers = [
