@@ -39,7 +39,7 @@ export default async function Courses() {
               <td className="p-2">{cours.capacity}</td>
               <td className="p-2 text-center flex">
                 <a
-                  href={`/dashboard/courses/delete/${cours.id}`}
+                  href={`/dashboard/courses/${cours.id}/delete`}
                   className="inline-flex items-center justify-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mr-3"
                 >
                   <TrashIcon className="h-5 w-5 text-white" />
