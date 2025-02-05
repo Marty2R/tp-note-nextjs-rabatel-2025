@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
-import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { courses, users } from '../lib/placeholder-data';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -31,10 +31,36 @@ async function seedUsers() {
   return insertedUsers;
 }
 
+async function seedCourses() {
+  await sql`CREATE TABLE IF NOT EXISTS courses (
+    id TEXT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    instrument VARCHAR(100) NOT NULL,
+    teacherId TEXT NOT NULL,
+    level VARCHAR(50) NOT NULL,
+    schedule TEXT NOT NULL,
+    capacity INT NOT NULL
+  );`;
+
+  const insertedCourses = await Promise.all(
+    courses.map(async (course) => {
+      return sql`
+        INSERT INTO courses (id, title, description, instrument, teacherId, level, schedule, capacity)
+        VALUES (${course.id}, ${course.title}, ${course.description}, ${course.instrument}, ${course.teacherId}, ${course.level}, ${course.schedule}, ${course.capacity})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+    }),
+  );
+
+  return insertedCourses;
+}
+
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
       seedUsers(),
+      seedCourses(),
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
