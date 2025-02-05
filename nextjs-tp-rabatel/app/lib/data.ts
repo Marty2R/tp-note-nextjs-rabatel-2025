@@ -26,3 +26,17 @@ export async function fetchLatestUsers() {
     throw new Error('Failed to fetch the latest users.');
   }
 }
+
+export async function fetchLatestCourses() {
+  try {
+    const data = await sql`
+      SELECT *
+      FROM courses
+      `;
+
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the latest users.');
+  }
+}

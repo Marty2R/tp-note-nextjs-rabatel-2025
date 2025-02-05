@@ -11,9 +11,9 @@ const userRole = "user"; // Remplacez ceci par la logique pour obtenir le rôle 
 const links = [
   { name: "Home", href: "/dashboard", icon: HomeIcon },
   {
-    name: "Students",
-    href: "/dashboard/students",
-    icon: UserGroupIcon,
+    name: "Courses",
+    href: "/dashboard/courses",
+    icon: DocumentDuplicateIcon,
   },
   { name: "Teachers", href: "/dashboard/teacher", icon: UserGroupIcon },
   ...(userRole === "user"

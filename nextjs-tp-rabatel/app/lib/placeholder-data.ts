@@ -3,21 +3,28 @@
 const users = [
   {
     id: '410544b2-4001-4271-9855-fec4b6a6442a',
-    name: 'User',
+    name: 'User - Admin',
     email: 'user@nextmail.com',
     password: '123456',
     role: 'user'
   },
   {
     id: '410544b2-4001-4271-9855-fec4b6a6442b',
-    name: 'Student',
+    name: 'Student - Lucas',
     email: 'student@nextmail.com',
     password: '123456',
     role: 'student'
   },
   {
     id: '410544b2-4001-4271-9855-fec4b6a6442c',
-    name: 'Teacher',
+    name: 'Teacher - Pierre',
+    email: 'teacher@nextmail.com',
+    password: '123456',
+    role: 'teacher'
+  },
+  {
+    id: '410544b2-4001-4271-9855-fec4b6a6442c',
+    name: 'Teacher - Alain',
     email: 'teacher@nextmail.com',
     password: '123456',
     role: 'teacher'
