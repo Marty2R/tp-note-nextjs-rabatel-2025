@@ -8,6 +8,9 @@ dependencies:
   next-auth:
     specifier: 5.0.0-beta.25
     version: 5.0.0-beta.25(next@15.1.6)(react@19.0.0)
+  react-hook-form:
+    specifier: ^7.54.2
+    version: 7.54.2(react@19.0.0)
 
 packages:
 
@@ -500,6 +503,15 @@ packages:
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
+    dev: false
+
+  /react-hook-form@7.54.2(react@19.0.0):
+    resolution: {integrity: sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+    dependencies:
+      react: 19.0.0
     dev: false
 
   /react@19.0.0:

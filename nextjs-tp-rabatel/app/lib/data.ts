@@ -27,6 +27,20 @@ export async function fetchLatestUsers() {
   }
 }
 
+export async function fetchLatestTeacher() {
+  try {
+    const data = await sql`
+      SELECT id, name, email, role
+      FROM users
+      WHERE role = 'teacher'`;
+
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the latest users.');
+  }
+}
+
 export async function fetchLatestCourses() {
   try {
     const data = await sql`

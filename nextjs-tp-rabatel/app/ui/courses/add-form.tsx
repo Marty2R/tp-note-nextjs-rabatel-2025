@@ -11,17 +11,40 @@ import {
 import { Button } from "@/app/ui/button";
 import { addCourse, State } from "@/app/lib/action";
 import { useActionState } from "react";
+import { addNewCourses } from "@/app/lib/action";
+import { useForm } from "react-hook-form";
 
-// Define the state type to include the form data
-interface FormState {
-  message: string | null;
-  errors: Record<string, string[]>;
-  formData: FormData; // Add formData to the state
-}
+type user = {
+  id: string;
+  name: string;
+  role: string;
+  email: string;
+};
 
-export default function Form({ customers }: { customers: CustomerField[] }) {
+export default function Form({ users }: { users: user[] }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      instrument: "",
+      teacherId: "",
+      level: "",
+      schedule: "",
+      capacity: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const res = await addNewCourses(data);
+    console.log(data);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <div className="mb-4">
           <label
@@ -31,12 +54,20 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Title
           </label>
           <input
+            {...register("title", {
+              required: {
+                value: true,
+                message: "Titre requis",
+              },
+            })}
             type="text"
             name="title"
             id="title"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
+          {errors.title && (
+            <p className="text-xs mt-1 text-red-600">{errors.title.message}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -46,12 +77,22 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Description
           </label>
           <textarea
+            {...register("description", {
+              required: {
+                value: true,
+                message: "description requis",
+              },
+            })}
             name="description"
             id="description"
             rows={3}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
+          {errors.description && (
+            <p className="text-xs mt-1 text-red-600">
+              {errors.description.message}
+            </p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -61,12 +102,22 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Instrument
           </label>
           <input
+            {...register("instrument", {
+              required: {
+                value: true,
+                message: "instrument requis",
+              },
+            })}
             type="text"
             name="instrument"
             id="instrument"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
+          {errors.instrument && (
+            <p className="text-xs mt-1 text-red-600">
+              {errors.instrument.message}
+            </p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -76,18 +127,28 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Teacher
           </label>
           <select
+            {...register("teacherId", {
+              required: {
+                value: true,
+                message: "teacher requis",
+              },
+            })}
             name="teacherId"
             id="teacherId"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           >
             <option value="">Select a teacher</option>
-            {customers.map((customer) => (
-              <option key={customer.id} value={customer.id}>
-                {customer.name}
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.name}
               </option>
             ))}
           </select>
+          {errors.teacherId && (
+            <p className="text-xs mt-1 text-red-600">
+              {errors.teacherId.message}
+            </p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -97,12 +158,20 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Level
           </label>
           <input
+            {...register("level", {
+              required: {
+                value: true,
+                message: "level requis",
+              },
+            })}
             type="text"
             name="level"
             id="level"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
+          {errors.level && (
+            <p className="text-xs mt-1 text-red-600">{errors.level.message}</p>
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -112,13 +181,21 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Schedule
           </label>
           <input
+            {...register("schedule", {
+              required: {
+                value: true,
+                message: "schedule requis",
+              },
+            })}
             type="text"
             name="schedule"
             id="schedule"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
         </div>
+        {errors.schedule && (
+          <p className="text-xs mt-1 text-red-600">{errors.schedule.message}</p>
+        )}
         <div className="mb-4">
           <label
             htmlFor="capacity"
@@ -127,13 +204,21 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             Capacity
           </label>
           <input
+            {...register("capacity", {
+              required: {
+                value: true,
+                message: "capacity requis",
+              },
+            })}
             type="number"
             name="capacity"
             id="capacity"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
           />
         </div>
+        {errors.capacity && (
+          <p className="text-xs mt-1 text-red-600">{errors.capacity.message}</p>
+        )}
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

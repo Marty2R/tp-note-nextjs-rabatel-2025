@@ -1,4 +1,4 @@
-import { fetchLatestUsers } from "@/app/lib/data";
+import { fetchLatestUsers, fetchLatestTeacher } from "@/app/lib/data";
 import Form from "@/app/ui/courses/add-form";
 import { Metadata } from "next";
 
@@ -13,9 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default async function AddCourses() {
+  console.log(await fetchLatestTeacher());
+  const data = await fetchLatestTeacher();
   return (
     <div className="p-6 rounded">
       <div className="text-2xl font-bold mb-4">Ajouter un nouveau cours</div>
+      <Form users={data} />
     </div>
   );
 }
